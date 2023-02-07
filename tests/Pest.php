@@ -39,7 +39,45 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
-{
-    // ..
+function cleanDummyFiles($files) {
+    if (is_string($files)) {
+        $files = [$files];
+    }
+
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+}
+
+function getPrivateMethod(object $obj, $method) {
+    $refMethod = new ReflectionMethod($obj, $method);
+    $refMethod->setAccessible(true);
+    $obj = (gettype($obj) === 'object') ? $obj : null;
+
+    return function (...$args) use ($refMethod, $obj) {
+        return $refMethod->invokeArgs($obj, $args);
+    };
+}
+
+function getDummyData() {
+    return [
+        ['id','user','col'],
+        [1,'user1','foo'],
+        [2,'user2','bar'],
+        [3,'user3','baz']
+    ];
+}
+
+function getFileContent(string $path) {
+
+    $file = fopen($path, 'r');
+    $data = [];
+
+    while (($row = fgetcsv($file)) !== FALSE) {
+        $data[] = $row;
+    }
+    
+    return $data;
 }
