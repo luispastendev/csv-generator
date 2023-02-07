@@ -96,7 +96,7 @@ $obj->create(string $pathfile, array $rows);
 ## Test
 Los test de estas librerias se encuentran programados en `pest` correr los test de este proyecto necesitaras realizar `composer install` y ejecutar el siguiente comando en consola
 
-```bash
+```
 ./vendor/bin/pest
 
 
