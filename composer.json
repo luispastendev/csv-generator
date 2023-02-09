@@ -1,4 +1,17 @@
 {
+    "name": "luispastendev/csv-generator",
+    "description": "Generador de archivos csv",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Luis Pastén",
+            "email": "luispasten.dev@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
     "require-dev": {
         "pestphp/pest": "^1.22",
         "friendsofphp/php-cs-fixer": "^3.14",
