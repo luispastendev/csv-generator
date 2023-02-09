@@ -3,7 +3,12 @@
 Generador de archivos formato csv
 
 ## Instalación
-...
+
+Puedes realizarlo por composer mediante el comando:
+
+```bash
+composer require luispastendev/csv-generator
+```
 
 ## Uso
 

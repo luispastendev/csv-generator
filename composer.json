@@ -3,6 +3,7 @@
     "description": "Generador de archivos csv",
     "type": "library",
     "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Luis Pastén",
