@@ -20,8 +20,18 @@ use CSVGenerator\CSVGenerator;
 // Especificamos la ruta de donde se generara el archivo con ext csv.
 $file = __DIR__ . '/test.csv';
 
+// clasico
+$csv_generator = new CSVGenerator;
+$csv_generator->create($file, ['id', 'name', 'company']);
+$csv_generator->add([1, 'luis', 'company1']);
+$csv_generator->add([2, 'foo', 'company2']);
+
+// chaining functions
 (new CSVGenerator)->create($file, ['id', 'name', 'company'])
-    ->add([1, 'luis', 'company1'])
+    ->add([
+        [1, 'luis', 'company1'],
+        [2, 'foo', 'company2']
+    ]);
 ```
 
 ## Agregar datos
@@ -42,7 +52,7 @@ $generator->add([2, 'foo', 'company2']);
 $generator->add([
     [1, 'luis', 'company1'],
     [2, 'foo', 'company2'],
-    [3, 'bar', 'company3'],
+    [3, 'bar', 'company3']
 );
 
 ```
