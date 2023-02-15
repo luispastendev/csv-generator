@@ -135,6 +135,28 @@ $obj->add(array $rows);
 $obj->create(string $pathfile, array $rows);
 ```
 
+#### `setFile`
+```php
+/**
+ * Establece un archivo para trabajar sobre el.
+ *
+ * @param string $path
+ * @return self
+ */
+
+$obj->setFile(string $path);
+```
+
+#### `getFileInfo`
+```php
+/**
+ * Regresa información del archivo nuevo o existente.
+ *
+ * @return array
+ */
+
+$obj->getFileInfo(string $path);
+```
 
 ## Test
 Los test de estas librerias se encuentran programados en `pest` correr los test de este proyecto necesitaras realizar `composer install` y ejecutar el siguiente comando en consola
