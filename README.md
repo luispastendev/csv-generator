@@ -142,7 +142,6 @@ Los test de estas librerias se encuentran programados en `pest` correr los test 
 ```
 ./vendor/bin/pest
 
-
 PASS  Tests\Feature\CSVGeneratorTest
 ✓ it create file via constructor
 ✓ it create file via method create
@@ -152,14 +151,15 @@ PASS  Tests\Feature\CSVGeneratorTest
 ✓ it generate correct csv format.
 ✓ it generate file in steps
 ✓ it generate file in steps with chaining functions
+✓ it write to an existing file
+✓ it get file name
 
 PASS  Tests\Unit\CSVGeneratorTest
 ✓ it add suffix to a name
 ✓ it generate filename with suffix
 ✓ it valid file fails
 
-Tests:  11 passed
-Time:   0.08s
+Tests:  13 passed
 ```
 
 
