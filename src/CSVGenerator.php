@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Libreria para exportar informacion en csv.
+ * Librería para exportar información en csv.
  *
  * (c) Neubox Internet 2023 <luisromero@neubox.net>
  */
@@ -48,19 +48,31 @@ final class CSVGenerator
         }
     }
 
+    /**
+     * Establece un archivo para trabajar sobre el.
+     *
+     * @param string $path
+     * @return self
+     */
     public function setFile(string $path): self
     {
         $this->pathFile = $path;
+
         return $this;
     }
 
+    /**
+     * Regresa información del archivo nuevo o existente.
+     *
+     * @return array
+     */
     public function getFileInfo(): array
     {
         return $this->getCsvInfo($this->pathFile);
     }
 
     /**
-     * Se encarga de crear un archivo y agregar datos
+     * Se encarga de crear un archivo y agregar datos.
      *
      * @param string $path
      * @param array $rows
@@ -78,7 +90,7 @@ final class CSVGenerator
     }
 
     /**
-     * Se encarga de agregar data a un archivo existente
+     * Se encarga de agregar data a un archivo existente.
      *
      * @param array $rows
      * @return bool
@@ -121,7 +133,7 @@ final class CSVGenerator
     }
 
     /**
-     * Regresa un posible mensaje de error
+     * Regresa un posible mensaje de error.
      *
      * @return string
      */
@@ -131,7 +143,7 @@ final class CSVGenerator
     }
 
     /**
-     * Se encarga de crear nuevos archivos
+     * Se encarga de crear nuevos archivos.
      *
      * @param string $path
      * @return bool
@@ -156,14 +168,14 @@ final class CSVGenerator
     }
 
     /**
-     * Genera un path de archivo con sufijo incremental
+     * Genera un path de archivo con sufijo incremental.
      *
      * @param string $path
      * @return string
      */
     private function getFilenameWithSuffix(string $path): string
     {
-        $info = $this->getCsvInfo($path);
+        $info     = $this->getCsvInfo($path);
         $filename = $this->addSuffix($info['basename']);
         $new_path = "{$info['path']}/{$filename}.{$info['extension']}";
 
@@ -174,17 +186,23 @@ final class CSVGenerator
         return $new_path;
     }
 
+    /**
+     * Genera la información de un archivo existente o nuevo.
+     *
+     * @param string $path
+     * @return array
+     */
     private function getCsvInfo(string $path): array
     {
-        $file = new \SplFileInfo($path);
-        $basename = $file->getBasename('.csv');
+        $file      = new \SplFileInfo($path);
+        $basename  = $file->getBasename('.csv');
         $extension = $file->getExtension();
 
         return [
-            'filename' => "{$basename}.{$extension}",
-            'basename' => $basename,
+            'filename'  => "{$basename}.{$extension}",
+            'basename'  => $basename,
             'extension' => $extension,
-            'path' => $file->getPath()
+            'path'      => $file->getPath(),
         ];
     }
 
