@@ -6,7 +6,7 @@ it('add suffix to a name', function () {
     $filename  = 'test';
     $method = getPrivateMethod(new CSVGenerator, 'addSuffix');
 
-    for ($i = 1; $i <= 3; $i++) { 
+    for ($i = 1; $i <= 3; $i++) {
         $filename = $method($filename);
         expect($filename)->toBe("test_{$i}");
     }
@@ -25,6 +25,6 @@ it('valid file fails', function () {
 
     $validateFile = getPrivateMethod(new CSVGenerator, 'validateFile');
     $result = $validateFile($path);
-    
+
     expect($result)->toBeFalse();
 });

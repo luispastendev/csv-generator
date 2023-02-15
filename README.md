@@ -18,6 +18,7 @@ Para utilizar esta libreria es muy simple, solo generamos la instancia del archi
 use CSVGenerator\CSVGenerator;
 
 // Especificamos la ruta de donde se generara el archivo con ext csv.
+// si el archivo ya existe se creara uno nuevo
 $file = __DIR__ . '/test.csv';
 
 // clasico
@@ -39,7 +40,6 @@ $csv_generator->add([2, 'foo', 'company2']);
 Puedes crear datos en lote o poco a poco dentro del flujo de tu aplicación
 
 ```php
-
 $file = __DIR__ . '/test.csv';
 
 $generator = new CSVGenerator($file);
@@ -54,12 +54,11 @@ $generator->add([
     [2, 'foo', 'company2'],
     [3, 'bar', 'company3']
 );
-
 ```
 
 Tambien puedes crear un archivo con datos con la funcion `create()`
 ```php
-$file = __DIR__ . '/test.csv';
+$path = __DIR__ . '/test.csv';
 
 (new CSVGenerator)->create($path, [ 
     [1, 'luis', 'company1'],
@@ -67,13 +66,42 @@ $file = __DIR__ . '/test.csv';
 ]);
 ```
 
-Si el archivo se encuentra duplicado la libreria va generar un archivo con suffix para evitar sobrescribir la data
+Si el archivo se encuentra duplicado la libreria va generar un nuevo archivo con suffix
 
 ```bash 
 src/
 ├── test.csv
 ├── test_1.csv
 └── test_2.csv
+```
+
+## Trabajar con archivos existentes
+
+Puedes trabajar con archivos que ya existen para agregar contenido nuevo
+```php
+$path = __DIR__ . '/ya-existo.csv';
+
+$generator = new CSVGenerator($path);
+$generator->add([1,'foo','bar']);
+
+// o tambien ... 
+
+(new CSVGenerator)->setFile($path)->add([
+    [1,'foo','bar'],
+    //...
+]);
+```
+Si tu lo necesitas puedes obtener información del archivo existente o generado
+```php
+$generator->setFile($path)->add([10, 'php', 'fff']);
+$info = $generator->getFileInfo();
+
+// [
+//    'filename'  => 'ya-existo.csv',
+//    'basename'  => 'ya-existo',
+//    'extension' => 'csv',
+//    'path'      => /path/dir/
+// ]
 ```
 
 ## API

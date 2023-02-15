@@ -51,6 +51,21 @@ function cleanDummyFiles($files) {
     }
 }
 
+function createDummyFile(string $path, array $rows) {
+
+    if (empty(array_filter($rows, 'is_array'))) { // is unidimensional?
+        $rows = [$rows];
+    }
+
+    $file = fopen($path, 'a');
+
+    foreach ($rows as $row) {
+        fputcsv($file, $row);
+    }
+
+    fclose($file);
+}
+
 function getPrivateMethod(object $obj, $method) {
     $refMethod = new ReflectionMethod($obj, $method);
     $refMethod->setAccessible(true);
@@ -78,6 +93,6 @@ function getFileContent(string $path) {
     while (($row = fgetcsv($file)) !== FALSE) {
         $data[] = $row;
     }
-    
+
     return $data;
 }

@@ -38,10 +38,25 @@ final class CSVGenerator
     public function __construct($path = '')
     {
         if (! empty($path) && $this->validateFile($path)) {
-            if (! $this->createFile($path)) {
-                echo $this->errorMessage;
+            if (! file_exists($path)) {
+                if (! $this->createFile($path)) {
+                    echo $this->errorMessage;
+                }
+            } else {
+                $this->pathFile = $path;
             }
         }
+    }
+
+    public function setFile(string $path): self
+    {
+        $this->pathFile = $path;
+        return $this;
+    }
+
+    public function getFileInfo(): array
+    {
+        return $this->getCsvInfo($this->pathFile);
     }
 
     /**
@@ -148,18 +163,29 @@ final class CSVGenerator
      */
     private function getFilenameWithSuffix(string $path): string
     {
-        $file = new \SplFileInfo($path);
-        $filename = $file->getBasename('.csv');
-        $filename = $this->addSuffix($filename);
-        $extension = $file->getExtension();
-        $path = $file->getPath();
-        $new_path = "{$path}/{$filename}.{$extension}";
+        $info = $this->getCsvInfo($path);
+        $filename = $this->addSuffix($info['basename']);
+        $new_path = "{$info['path']}/{$filename}.{$info['extension']}";
 
         if (file_exists($new_path)) {
             $new_path = $this->getFilenameWithSuffix($new_path);
         }
 
         return $new_path;
+    }
+
+    private function getCsvInfo(string $path): array
+    {
+        $file = new \SplFileInfo($path);
+        $basename = $file->getBasename('.csv');
+        $extension = $file->getExtension();
+
+        return [
+            'filename' => "{$basename}.{$extension}",
+            'basename' => $basename,
+            'extension' => $extension,
+            'path' => $file->getPath()
+        ];
     }
 
     /**

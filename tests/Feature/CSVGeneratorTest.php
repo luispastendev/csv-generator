@@ -100,3 +100,34 @@ it('generate file in steps with chaining functions', function () {
 
     cleanDummyFiles($path);
 });
+
+it('write to an existing file', function () {
+    $path    = __DIR__ . '/dummy.csv';
+    $columns = ['name', 'age'];
+    $rows    = [['foo',10], ['bar',20]];
+
+    createDummyFile($path, $columns);
+
+    (new CSVGenerator)->setFile($path)->add($rows);
+
+    $content = getFileContent($path);
+    array_unshift($rows, $columns);
+
+    expect($content)->toMatchArray($rows);
+
+    cleanDummyFiles($path);
+});
+
+it('get file name', function () {
+    $path = __DIR__ . '/dummy.csv';
+
+    createDummyFile($path, getDummyData());
+
+    $generator = new CSVGenerator;
+    $generator->setFile($path)->add([10, 'php', 'fff']);
+
+    $info = $generator->getFileInfo();
+    expect($info['filename'])->toBe('dummy.csv');
+
+    cleanDummyFiles($path);
+});
